@@ -47,7 +47,7 @@ export default function HomeScreen() {
         <TextInput 
           placeholder={"Add a Word to the Grid!"}
           value={state.label.get()} 
-          onChange={(e)=> {state.label.set(p => e.target.value)}}
+          onChangeText={(text) => {state.label.set(text)}}
           style={styles.input}></TextInput>
         <TouchableOpacity 
           onPress={() => {
@@ -69,7 +69,13 @@ export default function HomeScreen() {
             multiline={true}
             style={styles.textarea}
             numberOfLines={4}
-            onChangeText={(text) => {getClickedSquare().description.set(text)}}
+            onChangeText={(text) => {
+              if (getClickedSquare().word.get() != "") {
+                getClickedSquare().description.set(text);
+              } else {
+                alert(`Fill box ${getClickedSquare().id.get()} with a word first :0`)
+              }
+            }}
             value={getClickedSquare().description.get()}
             /> : 
             null

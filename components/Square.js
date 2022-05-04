@@ -49,7 +49,7 @@ export const Square = ({id}) => {
           padding: 0,
           backgroundColor: getThisSquare().color.get()
         }}>
-        <Text style={{height: 30, color: 'black', zIndex: 100}}>{getThisSquare().word.get()}</Text>
+        <Text style={{height: 30, color: 'black', zIndex: 999}}>{getThisSquare().word.get()}</Text>
       </TouchableOpacity>
     )
   }
