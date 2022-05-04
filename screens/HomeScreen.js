@@ -6,8 +6,8 @@ import { SquareGrid } from '../components/SquareGrid';
 import { colors, fallColors, basketColors } from '../utils/colors';
 import styles from '../utils/styles';
 
-export default function HomeScreen() {
 
+export default function HomeScreen() {
   
   const state = useState(globalState);
 
