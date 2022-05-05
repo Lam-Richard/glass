@@ -1,30 +1,34 @@
 import React,  { useEffect } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, Text, Button} from 'react-native';
 import styles from '../utils/styles';
 import { useState } from '@hookstate/core';
 import { View, TouchableOpacity } from 'react-native';
 
-export default function SignUpScreen () {
-    
-    const tempState = useState({textValue: ""});
-
-    useEffect(() => {
-        console.log("tempState Text: ", tempState);
-    },[tempState.textValue.get()])
-
+export default function LoginScreen() {
+ 
     return (
-        <View>
-        <TextInput onChangeText={(text) => {tempState.textValue.set(text)}} style={styles.input}></TextInput>
-        <TouchableOpacity 
-            style={styles.addButton}
-            onPress={() => {
-                // Possible Asynchronization Issues?!?
-                console.log("Before: ", tempState.textValue.get());
-                tempState.textValue.set("");
-                console.log("After ", tempState.textValue.get());
-            }}>
-
+  
+        <View style={styles.loginContainer}>
+          <Text style = {styles.text}>Sign In</Text>
+          <TextInput 
+            placeholder={"username"}
+          //   value={state.label.get()} 
+          //   onChangeText={(text) => {state.label.set(text)}}
+            style={styles.loginInput}></TextInput>
+          
+          <TextInput 
+            placeholder={"password"}
+          //   value={state.label.get()} 
+          //   onChangeText={(text) => {state.label.set(text)}}
+            style={styles.loginInput}></TextInput>
+  
+          
+    <TouchableOpacity 
+          style={styles.submitButton}>
+          <Text>Submit</Text>
         </TouchableOpacity>
+  
+         
         </View>
     );
-};
+  }

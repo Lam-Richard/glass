@@ -43,6 +43,30 @@ const styles = StyleSheet.create({
       borderColor: 'black',
       borderWidth: 10,
       fontSize: 30
+    },
+    loginContainer: {
+      alignItems: 'center',
+      flex: 2, 
+      justifyContent: 'center',
+    },
+    loginInput: {
+      borderStyle: 'solid',
+      borderWidth: 1,
+      marginBottom: 10,
+      width: 200,
+      height: 25
+    },
+    text: {
+      fontSize: 24,
+      marginBottom: 10
+    },
+    submitButton: {
+      backgroundColor: 'pink',
+      borderRadius: 25,
+      width: 100,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center'
     }
   });
 
