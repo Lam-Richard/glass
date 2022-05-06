@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@hookstate/core": "^3.0.13",
+    "@react-native-firebase/app": "^14.9.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "expo": "~44.0.0",

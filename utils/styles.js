@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     },
     banner: {
       position: 'absolute',
-      top: 50
+      top: 50,
+      flexDirection: 'row'
     },
     input: {
       position: 'absolute',
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
       borderStyle: 'solid',
       borderWidth: 1,
       marginBottom: 10,
+      paddingLeft: 5,
       width: 200,
       height: 25
     },
@@ -67,7 +69,17 @@ const styles = StyleSheet.create({
       height: 30,
       alignItems: 'center',
       justifyContent: 'center'
+    },
+    loginMsg : {
+      flexWrap: "wrap", 
+      flexDirection: 'row', 
+      marginTop: 10
+    },
+    blueUnderline: {
+      color: "blue",
+      textDecorationLine: "underline"
     }
+
   });
 
 export default styles;

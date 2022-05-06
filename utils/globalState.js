@@ -6,7 +6,8 @@ const globalState = createState({
     label: "",
     turn: 0,
     noPlayers: 2,
-    clickedSquare: 0
+    clickedSquare: 0,
+    loggedIn: null
   });
 
 export default globalState;

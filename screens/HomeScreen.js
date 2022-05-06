@@ -5,6 +5,8 @@ import globalState from '../utils/globalState';
 import { SquareGrid } from '../components/SquareGrid';
 import { colors, fallColors, basketColors } from '../utils/colors';
 import styles from '../utils/styles';
+import { auth } from '../utils/firebase';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 
 export default function HomeScreen({ navigation }) {
   
@@ -37,12 +39,37 @@ export default function HomeScreen({ navigation }) {
   function getClickedSquare () {
       return state.squares[getSquareIndexById(state.clickedSquare.get())];
   }
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      console.log("The user is still logged in :0")
+      // ...
+    } else {
+      // User is signed out
+      state.loggedIn.set(null);
+      navigation.navigate("Auth");
+    }
+  });
   
   return (
 
       <View style={styles.container}>
         <SquareGrid></SquareGrid>
-        <Text style={styles.banner}>Player {state.turn.get() % state.noPlayers.get() + 1}'s Turn!</Text>
+        <View style={styles.banner}>
+          <Text>Player {state.turn.get() % state.noPlayers.get() + 1}'s Turn! </Text>
+          <Text onPress={() => { 
+            signOut(auth)
+            .then(() => {
+              state.loggedIn.set(null);
+              navigation.navigate("Auth");
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+          }} style={styles.blueUnderline}>Logout</Text>
+        </View>
         <TextInput 
           placeholder={"Add a Word to the Grid!"}
           value={state.label.get()} 
