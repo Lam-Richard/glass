@@ -54,8 +54,6 @@ export default function HomeScreen({ navigation }) {
             // state.turn.set(p => p + 1);
             if (state.squares.get().length == 25) {
               console.log("We're done here")
-              // DEMONSTRATION OF NAVIGATION
-              navigation.navigate("Auth")
             } else {
               state.squares.merge([createSquare()])
               state.turn.set(p => p + 1);

@@ -10,8 +10,9 @@ function App () {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      
       <Stack.Screen name="Auth" component={SignUpScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
