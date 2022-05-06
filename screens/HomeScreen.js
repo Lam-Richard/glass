@@ -91,7 +91,7 @@ export default function HomeScreen({ navigation }) {
           <Text>Add</Text>
         </TouchableOpacity>
 
-        {state.squares.get().length != 0 ?
+        {/* {state.squares.get().length != 0 ?
             <TextInput
             multiline={true}
             style={styles.textarea}
@@ -106,7 +106,7 @@ export default function HomeScreen({ navigation }) {
             value={getClickedSquare().description.get()}
             /> : 
             null
-        }
+        } */}
        
       </View>
   );
