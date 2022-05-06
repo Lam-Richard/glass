@@ -10,7 +10,13 @@ export const Square = ({id}) => {
     function getSquareIndexById (id) {
       return state.squares.get().indexOf(state.squares.get().find(element => element.id == id));
     }
-  
+
+    async function updateTurn () {
+      const newTurnRef = ref(db, 'turn');
+      const snapshot = await get(newTurnRef);
+      const data = snapshot.val();
+      await set(newTurnRef, (data + 1) % (state.noPlayers.get()));
+    }
     
     function getThisSquare () {
         return state.squares[getSquareIndexById(id)];
@@ -25,19 +31,25 @@ export const Square = ({id}) => {
         onLongPress={() => {
             console.log("A Long Press Happened...!");
         }}
-        onPress={() => {
+        onPress={async () => {
             console.log("This is the label: ", state.label.get());
             console.log("This is the color: ", getThisSquare().color.get());
             state.clickedSquare.set(getThisSquare().id.get());    
-            
+  
             if (getThisSquare().word.get() != "") {
+                // TODO: This is supposed to let them view the artifact 
+                // WITHOUT being able to comment
                 console.log("Box Already Labeled!")
-            } else if (state.label.get() == "") {
+            } else if (state.label.get() == "" && state.myTurn.get() == true) {
+                // This is expected behavior
                 console.log("Label cannot be empty!")
+            } else if (getThisSquare().word.get() == "" && state.myTurn.get() == false) {
+                // This is expected behavior, not your turn == can't click empty box
+                console.log("It's not your turn to label anything :0");
             } else {
                 getThisSquare().word.set(state.label.get());
                 state.label.set("");
-                state.turn.set(p => p + 1);
+                await updateTurn();
             }
         }}
         style={{
