@@ -78,6 +78,33 @@ const styles = StyleSheet.create({
     blueUnderline: {
       color: "blue",
       textDecorationLine: "underline"
+    },
+    imagechooser: {
+      borderRadius: 0,
+      width: 400,
+      height: 400,
+      borderStyle: 'solid',
+      borderColor: 'black',
+      borderWidth: 1,
+      marginBottom: 25,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    audioChooser: {
+      width: 400,
+      height: 30, 
+      backgroundColor: 'lightgray',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    memoryBox: {
+      width: 400,
+      height: 30,
+      marginTop: 20,
+      borderWidth: 1,
+      borderColor: 'black',
+      borderStyle: 'solid',
+      marginBottom: 20
     }
 
   });

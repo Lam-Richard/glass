@@ -40,38 +40,40 @@ export default function LoginScreen({ navigation }) {
           
         <TouchableOpacity 
           onPress={() => { 
-            if (loginState.username.get() != "" && loginState.password.get() != "") {
-              if (loginState.signIn.get() == true) {
-                  signInWithEmailAndPassword(auth, loginState.username.get(), loginState.password.get())
-                  .then((userCredential) => {
-                    // Signed in 
-                    resetLoginState();
-                    state.loggedIn.set(userCredential.user);
-                    console.log("Logged In");
-                    navigation.navigate("Home");
-                  })
-                  .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                  });
-              } else {
-                  createUserWithEmailAndPassword(auth, loginState.username.get(), loginState.password.get())
-                  .then((userCredential) => {
-                    // Signed in 
-                    resetLoginState();
-                    state.loggedIn.set(userCredential.user);
-                    console.log("Signed Up & Logged In");
-                    navigation.navigate("Home");
-                  })
-                  .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                  });
-              }
-            } else {
-              console.log("ERROR: Username & Password Cannot Be Blank")
-            }
-          }}
+    //         if (loginState.username.get() != "" && loginState.password.get() != "") {
+    //           if (loginState.signIn.get() == true) {
+    //               signInWithEmailAndPassword(auth, loginState.username.get(), loginState.password.get())
+    //               .then((userCredential) => {
+    //                 // Signed in 
+    //                 resetLoginState();
+    //                 state.loggedIn.set(userCredential.user);
+    //                 console.log("Logged In");
+    //                 navigation.navigate("Home");
+    //               })
+    //               .catch((error) => {
+    //                 const errorCode = error.code;
+    //                 const errorMessage = error.message;
+    //               });
+    //           } else {
+    //               createUserWithEmailAndPassword(auth, loginState.username.get(), loginState.password.get())
+    //               .then((userCredential) => {
+    //                 // Signed in 
+    //                 resetLoginState();
+    //                 state.loggedIn.set(userCredential.user);
+    //                 console.log("Signed Up & Logged In");
+    //                 navigation.navigate("Home");
+    //               })
+    //               .catch((error) => {
+    //                 const errorCode = error.code;
+    //                 const errorMessage = error.message;
+    //               });
+    //           }
+    //         } else {
+    //           console.log("ERROR: Username & Password Cannot Be Blank")
+    //         }
+    //       }}
+    // <TouchableOpacity 
+          navigation.navigate("AddMoment") }} 
           style={styles.submitButton}>
           <Text>Submit</Text>
         </TouchableOpacity>
