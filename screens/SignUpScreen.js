@@ -5,19 +5,22 @@ import globalState from '../utils/globalState';
 import { useState } from '@hookstate/core';
 import { View, TouchableOpacity } from 'react-native';
 import { auth } from '../utils/firebase';
+import { database as db } from '../utils/firebase';
+import { ref, set, get, push } from 'firebase/database';
+
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
     
     const state = useState(globalState);
-    const loginState = useState({username: "", password: "", signIn: true});
+    const loginState = useState({email: "", password: "", signIn: true});
     
     useEffect(() => {
       console.log(state.loggedIn.get());
     }, [state.loggedIn.get()])
 
     function resetLoginState () {
-      loginState.username.set("");
+      loginState.email.set("");
       loginState.password.set("");
       loginState.signIn.set(true);
     }
@@ -26,9 +29,9 @@ export default function LoginScreen({ navigation }) {
         <View style={styles.loginContainer}>
           <Text style = {styles.text}>{loginState.signIn.get() ? "Sign In" : "Sign Up"}</Text>
           <TextInput 
-            placeholder={"username"}
-            value={loginState.username.get()} 
-            onChangeText={(text) => {loginState.username.set(text)}}
+            placeholder={"email"}
+            value={loginState.email.get()} 
+            onChangeText={(text) => {loginState.email.set(text)}}
             style={styles.loginInput}></TextInput>
           
           <TextInput 
@@ -39,10 +42,10 @@ export default function LoginScreen({ navigation }) {
             style={styles.loginInput}></TextInput>
           
         <TouchableOpacity 
-          onPress={() => { 
-            if (loginState.username.get() != "" && loginState.password.get() != "") {
+          onPress={async () => { 
+            if (loginState.email.get() != "" && loginState.password.get() != "") {
               if (loginState.signIn.get() == true) {
-                  signInWithEmailAndPassword(auth, loginState.username.get(), loginState.password.get())
+                  signInWithEmailAndPassword(auth, loginState.email.get(), loginState.password.get())
                   .then((userCredential) => {
                     // Signed in 
                     resetLoginState();
@@ -55,12 +58,35 @@ export default function LoginScreen({ navigation }) {
                     const errorMessage = error.message;
                   });
               } else {
-                  createUserWithEmailAndPassword(auth, loginState.username.get(), loginState.password.get())
-                  .then((userCredential) => {
-                    // Signed in 
-                    resetLoginState();
+                  await createUserWithEmailAndPassword(auth, loginState.email.get(), loginState.password.get())
+                  .then(async (userCredential) => {
+                    // Signed up
                     state.loggedIn.set(userCredential.user);
                     console.log("Signed Up & Logged In");
+
+                    // Need to update Firebase
+
+                    // See how many players have joined
+                    const playerNumRef = ref(db, 'playerNum/');
+                    await get(playerNumRef).then(async (snapshot) => {
+
+                      const data = snapshot.val();
+                      const playersRef = ref(db, 'players/');
+
+                      // Add the new player, with the new number.
+                      const newPlayerRef = push(playersRef);
+                      await set(newPlayerRef, {
+                        playerEmail: loginState.email.get(),
+                        playerId: data,
+                      })
+
+                      // Increment the number for the next new player.
+                      await set(playerNumRef, data + 1);
+                    }).catch((error) => {
+                      console.log(error);
+                    })
+
+                    resetLoginState();
                     navigation.navigate("Home");
                   })
                   .catch((error) => {
@@ -69,7 +95,7 @@ export default function LoginScreen({ navigation }) {
                   });
               }
             } else {
-              console.log("ERROR: Username & Password Cannot Be Blank")
+              console.log("ERROR: email & Password Cannot Be Blank")
             }
           }}
           style={styles.submitButton}>

@@ -5,7 +5,7 @@ const globalState = createState({
     squares: [],
     label: "",
     turn: 0,
-    noPlayers: 2,
+    noPlayers: 3,
     clickedSquare: 0,
     loggedIn: null
   });

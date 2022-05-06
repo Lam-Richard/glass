@@ -8,6 +8,7 @@ import styles from '../utils/styles';
 import { auth } from '../utils/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 
+
 export default function HomeScreen({ navigation }) {
   
   const state = useState(globalState);
